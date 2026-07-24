@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline CRM</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+  </head>
+
+  <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
+    <div class="flex min-h-screen">
+      <!-- Sidebar -->
+
+      <aside class="w-64 bg-white dark:bg-gray-800 p-5 shadow">
+        <h1 class="text-2xl font-bold mb-8">Offline CRM</h1>
+
+        <nav class="space-y-3">
+          <button
+            class="block w-full text-left p-3 rounded hover:bg-blue-500 hover:text-white"
+          >
+            🏠 Dashboard
+          </button>
+
+          <button
+            class="block w-full text-left p-3 rounded bg-blue-600 text-white"
+          >
+            👥 Customers
+          </button>
+
+          <button
+            class="block w-full text-left p-3 rounded hover:bg-blue-500 hover:text-white"
+          >
+            📋 Tasks
+          </button>
+
+          <button
+            class="block w-full text-left p-3 rounded hover:bg-blue-500 hover:text-white"
+          >
+            ⚙ Settings
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Main -->
+
+      <main class="flex-1 p-8">
+        <!-- Header -->
+
+        <header class="flex justify-between items-center mb-8">
+          <h2 class="text-3xl font-bold">Customer Management</h2>
+
+          <button
+            id="themeBtn"
+            class="px-4 py-2 rounded bg-gray-800 text-white"
+          >
+            🌙
+          </button>
+        </header>
+
+        <!-- Cards -->
+
+        <section class="grid grid-cols-4 gap-5 mb-8">
+          <div class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
+            <p>Total Customers</p>
+            <h3 id="totalCustomers" class="text-3xl font-bold mt-2">0</h3>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
+            <p>VIP Customers</p>
+
+            <h3 class="text-3xl font-bold mt-2">0</h3>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
+            <p>New Customers</p>
+
+            <h3 class="text-3xl font-bold mt-2">0</h3>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow">
+            <p>Inactive</p>
+
+            <h3 class="text-3xl font-bold mt-2">0</h3>
+          </div>
+        </section>
+
+        <!-- Actions -->
+
+        <section class="flex justify-between mb-5">
+          <div class="flex gap-3">
+            <input
+              id="searchInput"
+              class="px-4 py-2 rounded border dark:bg-gray-800"
+              placeholder="Search customer..."
+            />
+
+            <select class="px-4 py-2 rounded border dark:bg-gray-800">
+              <option>All</option>
+
+              <option>VIP</option>
+
+              <option>New</option>
+            </select>
+          </div>
+
+          <button
+            id="addCustomer"
+            class="bg-blue-600 text-white px-5 py-2 rounded-lg"
+          >
+            + Add Customer
+          </button>
+        </section>
+
+        <!-- Table -->
+
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden"
+        >
+          <table class="w-full">
+            <thead class="bg-gray-200 dark:bg-gray-700">
+              <tr>
+                <th class="p-3">ID</th>
+
+                <th>Name</th>
+
+                <th>Phone</th>
+
+                <th>Company</th>
+
+                <th>Status</th>
+
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="customerTable"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal -->
+
+    <div
+      id="customerModal"
+      class="hidden fixed inset-0 bg-black/50 flex items-center justify-center"
+    >
+      <div class="bg-white dark:bg-gray-800 p-8 rounded-xl w-96">
+        <h2 class="text-xl font-bold mb-5">Add Customer</h2>
+
+        <input
+          id="name"
+          class="w-full mb-3 p-2 rounded border dark:bg-gray-900"
+          placeholder="Name"
+        />
+
+        <input
+          id="phone"
+          class="w-full mb-3 p-2 rounded border dark:bg-gray-900"
+          placeholder="Phone"
+        />
+
+        <input
+          id="company"
+          class="w-full mb-3 p-2 rounded border dark:bg-gray-900"
+          placeholder="Company"
+        />
+
+        <select
+          id="status"
+          class="w-full mb-5 p-2 rounded border dark:bg-gray-900"
+        >
+          <option>New</option>
+
+          <option>VIP</option>
+
+          <option>Inactive</option>
+        </select>
+
+        <div class="flex justify-end gap-3">
+          <button id="closeModal" class="px-4 py-2 bg-gray-400 rounded">
+            Cancel
+          </button>
+
+          <button class="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="./scripts/AddModal.js"></script>
+  </body>
+</html>
