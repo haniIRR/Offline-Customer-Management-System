@@ -1,3 +1,5 @@
+import { AddCustomer } from "./Database.js";
+
 var addCustomer = document.getElementById("addCustomer");
 
 addCustomer.addEventListener("click", Modal);
@@ -25,7 +27,7 @@ function Modal() {
           </h2>
     
           <button
-            onclick="closeModal()"
+          id="closeModal"
             class="text-gray-500 hover:text-red-500 text-xl">
             ✕
           </button>
@@ -133,7 +135,6 @@ function Modal() {
     
     
             <button
-            onclick="closeModal()"
               type="button"
               id="cancelBtn"
               class="px-4 py-2 rounded-lg bg-gray-300">
@@ -142,7 +143,8 @@ function Modal() {
     
     
             <button
-              type="submit"
+            id="saveBtn"
+              type="button"
               class="px-4 py-2 rounded-lg bg-blue-600 text-white">
               Save
             </button>
@@ -159,9 +161,33 @@ function Modal() {
     </div>`;
 
   document.body.append(div);
+
+  div.querySelector("#saveBtn").addEventListener("click", SaveHandler);
+
+  div.querySelector("#cancelBtn").addEventListener("click", closeModal);
+
+  div.querySelector("#closeModal").addEventListener("click", closeModal);
 }
 
 function closeModal() {
   var customerModal = document.getElementById("customerModal");
   customerModal.remove();
+}
+
+async function SaveHandler() {
+  var customerName = document.getElementById("customerName");
+  var customerPhone = document.getElementById("customerPhone");
+  var customerEmail = document.getElementById("customerEmail");
+  var customerCompany = document.getElementById("customerCompany");
+  var customerStatus = document.getElementById("customerStatus");
+
+  var obj = {
+    customerName: customerName.value,
+    customerPhone: customerPhone.value,
+    customerEmail: customerEmail.value,
+    customerCompany: customerCompany.value,
+    customerStatus: customerStatus.value,
+  };
+
+  await AddCustomer(obj);
 }
