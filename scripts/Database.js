@@ -1,10 +1,8 @@
 let db;
 
-window.addEventListener("load", function () {
-  Opendatabase().then((res) => {
-    db = res;
-  });
-});
+export async function InitDatabase() {
+  db = await Opendatabase();
+}
 
 function Opendatabase() {
   return new Promise((resolve, reject) => {
@@ -25,7 +23,7 @@ function Opendatabase() {
     };
 
     request.onerror = function (e) {
-      const db = e.target.result;
+      const db = e.target.error;
       reject(db);
     };
   });
@@ -39,10 +37,43 @@ export function AddCustomer(obj) {
     const request = cobj.add(obj);
 
     request.onsuccess = function (e) {
-      resolve(e.target.result);
+      resolve(true);
     };
     request.onerror = function (e) {
-      reject(e.target.result);
+      reject(e.target.error);
+    };
+  });
+}
+
+export function UpdateCustomer(obj) {
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(["customers"], "readwrite");
+    const cobj = transaction.objectStore("customers");
+
+    const request = cobj.put(obj);
+
+    request.onsuccess = function () {
+      resolve(true);
+    };
+
+    request.onerror = function (e) {
+      reject(e.target.error);
+    };
+  });
+}
+
+export function GetData() {
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(["customers"], "readonly");
+    const cobj = transaction.objectStore("customers");
+
+    const req = cobj.getAll();
+    req.onsuccess = function () {
+      resolve(req.result);
+    };
+
+    req.onerror = function (e) {
+      reject(e.target.error);
     };
   });
 }
