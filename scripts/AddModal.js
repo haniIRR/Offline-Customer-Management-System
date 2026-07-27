@@ -215,17 +215,23 @@ async function SaveHandler() {
   var re = await AddCustomer(obj);
   if (re) {
     closeModal();
-    LoadData();
+    LoadData(null);
   }
 }
 
 window.addEventListener("load", async () => {
   await InitDatabase();
-  LoadData();
+  LoadData(null);
 });
 
-async function LoadData() {
-  var data = await GetData();
+export async function LoadData(obj) {
+  customerTable.innerHTML = "";
+  var data;
+  if (obj == null) {
+    data = await GetData();
+  } else {
+    data = obj;
+  }
   var frag = document.createDocumentFragment();
 
   data.forEach((element) => {
@@ -289,7 +295,7 @@ async function UpdateHandler() {
   console.log(re);
   if (re) {
     closeModal();
-    LoadData();
+    LoadData(null);
   }
 }
 
