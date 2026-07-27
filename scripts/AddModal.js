@@ -5,6 +5,8 @@ import {
   GetData,
 } from "./Database.js";
 
+import { AddNotif } from "./Notification.js";
+const notify = AddNotif();
 var customerTable = document.getElementById("customerTable");
 
 addCustomer.addEventListener("click", Modal);
@@ -214,8 +216,9 @@ async function SaveHandler() {
 
   var re = await AddCustomer(obj);
   if (re) {
-    closeModal();
     LoadData(null);
+    notify("success add", "green");
+    closeModal();
   }
 }
 
