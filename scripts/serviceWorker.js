@@ -11,8 +11,9 @@ self.addEventListener("install", (event) => {
         "/scripts/SearchCustomer.js",
         "/scripts/Notification.js",
         "/scripts/JsonFile.js",
+        "/scripts/manifest.json",
       ]);
-    }),
+    })
   );
 });
 
@@ -43,6 +44,6 @@ self.addEventListener("fetch", function (e) {
       }
 
       return fetch(e.request);
-    }),
+    })
   );
 });
