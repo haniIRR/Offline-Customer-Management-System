@@ -8,7 +8,7 @@ export function AddNotif() {
 
     t.innerHTML = `${count}.${message}`;
 
-    t.classList.add("text-white p-3 m-3 rounded-3");
+    t.classList.add("text-white", "p-3", "m-3", "rounded-3");
     t.style.backgroundColor = color;
 
     container.append(t);

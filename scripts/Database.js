@@ -1,3 +1,4 @@
+import { validationError } from "./ErrorHandling.js";
 let db;
 
 export async function InitDatabase() {
@@ -29,8 +30,9 @@ function Opendatabase() {
     };
 
     request.onerror = function (e) {
-      const db = e.target.error;
-      reject(db);
+      reject(
+        new validationError("خطا در باز کردن پایگاه داده", e.target.error),
+      );
     };
   });
 }
@@ -52,6 +54,7 @@ export function AddCustomer(obj) {
         customerName: obj.customerName,
         date: Date.now(),
         desc: "Add customer",
+        fn: () => {},
       });
     };
 
@@ -60,7 +63,9 @@ export function AddCustomer(obj) {
     };
 
     transaction.onerror = function (e) {
-      reject(e.target.error);
+      reject(
+        new validationError("خطا در اد کردن به پایگاه داده", e.target.error),
+      );
     };
   });
 }
@@ -86,7 +91,9 @@ export function UpdateCustomer(obj) {
     };
 
     transaction.onerror = function (e) {
-      reject(e.target.error);
+      reject(
+        new validationError("خطا در اپدیت کردن به پایگاه داده", e.target.error),
+      );
     };
     // request.onsuccess = function () {
     //   resolve(true);
@@ -109,7 +116,7 @@ export function GetData() {
     };
 
     req.onerror = function (e) {
-      reject(e.target.error);
+      reject(new validationError("خطا در گرفتن دیتاه", e.target.error));
     };
   });
 }
